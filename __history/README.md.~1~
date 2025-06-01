@@ -1,6 +1,6 @@
-﻿# NSReport
+# NSReport
 
-**NSReport** es un sistema de reportes visual y modular para Delphi VCL, creado por [NoshySoft](https://github.com/Noshygjm). Inspirado en QuickReport, pero con una arquitectura moderna, soporte extendido para bandas, datos, exportación y vista previa.
+**NSReport** es un sistema de reportes visual y modular para Delphi VCL, creado por [NoshySoft](https://github.com/NoshySoft). Inspirado en QuickReport, pero con una arquitectura moderna, soporte extendido para bandas, datos, exportación y vista previa.
 
 ## Características (versión inicial)
 - Componente visual `TNSReport` base
