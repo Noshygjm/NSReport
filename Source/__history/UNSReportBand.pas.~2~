@@ -1,0 +1,48 @@
+unit UNSReportBand;
+
+interface
+
+uses
+  System.Classes,
+  Vcl.Controls,
+  Vcl.Graphics,
+  TypInfo;
+
+type
+  TNSReportBandType = (rbHeader, rbDetail, rbFooter);
+
+  TNSReportBand = class(TCustomControl)
+  private
+    FBandType: TNSReportBandType;
+  protected
+    procedure Paint; override;
+  public
+    constructor Create(AOwner: TComponent); override;
+    property BandType: TNSReportBandType read FBandType write FBandType;
+  end;
+
+implementation
+
+{ TNSReportBand }
+
+constructor TNSReportBand.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+
+  Height := 50;
+  Width := 300;
+  Color := clWhite;
+end;
+
+procedure TNSReportBand.Paint;
+begin
+  inherited;
+
+  Canvas.Brush.Color := Color;
+  Canvas.FillRect(ClientRect);
+
+  Canvas.Font.Color := clGray;
+  Canvas.TextOut(4, 4, 'Band: ' + GetEnumName(TypeInfo(TNSReportBandType), Ord(FBandType)));
+end;
+
+end.

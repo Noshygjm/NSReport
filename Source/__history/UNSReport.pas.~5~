@@ -1,0 +1,28 @@
+unit UNSReport;
+
+interface
+
+uses
+  System.Classes,
+  System.Generics.Collections,
+  Vcl.Controls,
+  Vcl.Graphics,
+  UNSReportBand;
+type
+  TNSReport = class(TCustomControl)
+  private
+    { private declarations }
+  protected
+    { protected declarations }
+  public
+    { public declarations }
+
+  published
+    { published declarations }
+  end;
+
+implementation
+
+
+
+end.

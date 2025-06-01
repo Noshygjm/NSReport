@@ -1,0 +1,75 @@
+unit UNSReportBand;
+
+interface
+
+uses
+  System.Classes,
+  Vcl.Controls,
+  Vcl.Graphics,
+  Vcl.Forms,
+  TypInfo,
+  DesignIntf,
+  DesignEditors,
+  ToolsAPI;
+
+type
+  TNSReportBandType = (rbHeader, rbDetail, rbFooter);
+
+  TNSReportBand = class(TCustomControl)
+  private
+    FBandType: TNSReportBandType;
+  protected
+    procedure Paint; override;
+    procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer); override;
+  public
+    constructor Create(AOwner: TComponent); override;
+  published
+    property Height;
+    property BandType: TNSReportBandType read FBandType write FBandType;
+  end;
+
+implementation
+
+{ TNSReportBand }
+
+constructor TNSReportBand.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+
+  Height := 50;
+  Width := 300;
+  Color := clWhite;
+end;
+
+
+
+procedure TNSReportBand.MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  inherited;
+  if csDesigning in ComponentState then
+    SetFocus; // Esto activa el borde de selección del ID
+end;
+
+procedure TNSReportBand.Paint;
+begin
+  inherited;
+
+  // Fondo
+  Canvas.Brush.Color := Color;
+  Canvas.FillRect(ClientRect);
+
+//  if csDesigning in ComponentState then
+//  begin
+    // Estilo de borde punteado solo en tiempo de diseño
+    Canvas.Pen.Style := psDot;
+    Canvas.Pen.Color := clGray;
+    Canvas.Brush.Style := bsClear; // Importante para no sobreescribir el fondo
+    Canvas.Rectangle(ClientRect);
+//  end;
+
+  // Texto de tipo de banda
+  Canvas.Font.Color := clGray;
+  Canvas.TextOut(8, 8, 'Band: ' + GetEnumName(TypeInfo(TNSReportBandType), Ord(FBandType)));
+end;
+
+end.

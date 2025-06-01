@@ -136,6 +136,8 @@
         <DCCReference Include="designide.dcp"/>
         <DCCReference Include="..\..\Source\UNSReport.pas"/>
         <DCCReference Include="..\..\Source\UNSRegister.pas"/>
+        <DCCReference Include="..\..\Source\UNSReportBand.pas"/>
+        <None Include="..\..\README.md"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

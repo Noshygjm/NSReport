@@ -37,13 +37,8 @@ function TNSReport.AddBand(ABandType: TNSReportBandType): TNSReportBand;
 begin
   Result := TNSReportBand.Create(Self);
   Result.BandType := ABandType;
-
-  if csDesigning in ComponentState then
-    Owner.InsertComponent(Result); // hace que el diseñador la registre
-
-  Result.Parent := Self; // visual
+  Result.Parent := Self;
   FBands.Add(Result);
-
   ArrangeBands;
 end;
 
