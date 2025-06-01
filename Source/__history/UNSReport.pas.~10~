@@ -72,13 +72,9 @@ begin
   if csDesigning in ComponentState then
   begin
     // Crear bandas por defecto en tiempo de diseño
-    AddBand(rbReportHeader);
-    AddBand(rbPageHeader);
-    AddBand(rbColumnHeader);
+    AddBand(rbHeader);
     AddBand(rbDetail);
-    AddBand(rbDetailFooter);
-    AddBand(rbPageFooter);
-    AddBand(rbReportFooter);
+    AddBand(rbFooter);
   end;
 end;
 

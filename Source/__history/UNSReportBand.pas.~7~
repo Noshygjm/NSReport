@@ -13,15 +13,7 @@ uses
   ToolsAPI;
 
 type
-  TNSReportBandType = (
-    rbReportHeader,      // 1: Sólo al inicio del reporte
-    rbPageHeader,        // 2: Al inicio de cada página
-    rbColumnHeader,      // 3: Encabezados de columnas (antes del detalle)
-    rbDetail,            // 4: Por cada fila de datos
-    rbDetailFooter,      // 5: Subtotal o corte de grupo (en todas las páginas)
-    rbPageFooter,        // 6: Al final de cada página
-    rbReportFooter       // 7: Sólo al final del reporte
-  );
+  TNSReportBandType = (rbHeader, rbDetail, rbFooter);
 
   TNSReportBand = class(TCustomControl)
   private
