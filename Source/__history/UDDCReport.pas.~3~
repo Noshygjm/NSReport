@@ -1,0 +1,32 @@
+unit UDDCReport;
+
+interface
+
+uses
+  Classes;
+
+type
+TDDCReport = class(TComponent)
+private
+  { private declarations }
+protected
+  { protected declarations }
+public
+  { public declarations }
+
+published
+  { published declarations }
+end;
+
+implementation
+
+
+
+
+procedure Register;
+begin
+  // Esto aparecerá en el IDE bajo la pestaña "DDCReport"
+  RegisterComponents('DDCReport', [TDDCReport]);
+end;
+
+end.

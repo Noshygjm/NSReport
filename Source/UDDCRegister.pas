@@ -1,0 +1,21 @@
+unit UDDCRegister;
+
+interface
+
+uses
+  System.Classes,
+  DesignIntf,
+  DesignEditors,
+  UDDCReport;
+
+procedure Register;
+
+implementation
+
+procedure Register;
+begin
+  // Esto aparecerá en el IDE bajo la pestaña "DDCReport"
+  RegisterComponents('DDCReport', [TDDCReport]);
+end;
+
+end.

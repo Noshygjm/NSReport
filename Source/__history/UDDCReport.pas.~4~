@@ -1,0 +1,38 @@
+unit UDDCReport;
+
+interface
+
+uses
+  Classes,
+  Vcl.Controls;
+
+type
+  TDDCReport = class(TCustomControl)
+  private
+    { private declarations }
+  protected
+    { protected declarations }
+  public
+    { public declarations }
+
+  published
+    { published declarations }
+  end;
+
+procedure Register;
+
+implementation
+
+uses
+  DesignIntf, DesignEditors;
+
+procedure Register;
+begin
+  // Esto aparecerá en el IDE bajo la pestaña "DDCReport"
+  RegisterComponents('DDCReport', [TDDCReport]);
+end;
+
+initialization
+  Register;
+
+end.
