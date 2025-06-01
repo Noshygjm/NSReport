@@ -5,6 +5,8 @@ interface
 uses
   System.Classes,
   System.Generics.Collections,
+  System.TypInfo,
+  System.SysUtils,
   Vcl.Controls,
   Vcl.Graphics,
   UNSReportBand;
@@ -16,6 +18,9 @@ type
     procedure ArrangeBands;
   protected
     procedure Paint; override;
+    procedure Resize; override;
+    function GenerateBandName(ABandType: TNSReportBandType): string;
+    function GetSafeName: string;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -33,11 +38,23 @@ implementation
 { TNSReport }
 
 function TNSReport.AddBand(ABandType: TNSReportBandType): TNSReportBand;
+var
+  BaseName: string;
+  UniqueName: string;
+  Suffix: Integer;
 begin
   Result := TNSReportBand.Create(Self);
   Result.BandType := ABandType;
-  Result.Parent := Self;
+
+  // Generamos el name del component
+  Result.Name := GenerateBandName(ABandType);
+
+  if csDesigning in ComponentState then
+    Owner.InsertComponent(Result);
+
+  Result.Parent := Self; // visual
   FBands.Add(Result);
+
   ArrangeBands;
 end;
 
@@ -62,6 +79,20 @@ begin
   Width := 400;
   Height := 300;
   Color := clBtnFace;
+
+  if csDesigning in ComponentState then
+  begin
+    if (Owner <> nil) and (Owner.FindComponent(GenerateBandName(rbReportHeader)) = nil) then
+    begin
+      AddBand(rbReportHeader);
+      AddBand(rbPageHeader);
+      AddBand(rbColumnHeader);
+      AddBand(rbDetail);
+      AddBand(rbDetailFooter);
+      AddBand(rbPageFooter);
+      AddBand(rbReportFooter);
+    end;
+  end;
 end;
 
 destructor TNSReport.Destroy;
@@ -70,10 +101,28 @@ begin
   inherited;
 end;
 
+function TNSReport.GenerateBandName(ABandType: TNSReportBandType): string;
+begin
+  Result := 'Band_' + GetSafeName + '_' + GetEnumName(TypeInfo(TNSReportBandType), Ord(ABandType));
+end;
+
+function TNSReport.GetSafeName: string;
+begin
+  Result := Name;
+  if Result = '' then
+    Result := Copy(GetNamePath, LastDelimiter('.', GetNamePath) + 1, MaxInt);
+end;
+
 procedure TNSReport.Paint;
 begin
   inherited;
   // No dibujamos directamente; las bandas son controles hijos y se dibujan solas.
+end;
+
+procedure TNSReport.Resize;
+begin
+  inherited;
+  ArrangeBands;
 end;
 
 end.

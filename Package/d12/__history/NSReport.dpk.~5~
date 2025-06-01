@@ -35,7 +35,6 @@ requires
 contains
   UNSReport in '..\..\Source\UNSReport.pas',
   UNSRegister in '..\..\Source\UNSRegister.pas',
-  UNSReportBand in '..\..\Source\UNSReportBand.pas',
-  UNSReportReg in '..\..\Source\UNSReportReg.pas';
+  UNSReportBand in '..\..\Source\UNSReportBand.pas';
 
 end.

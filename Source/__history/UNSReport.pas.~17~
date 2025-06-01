@@ -9,7 +9,6 @@ uses
   System.SysUtils,
   Vcl.Controls,
   Vcl.Graphics,
-  Vcl.Dialogs,
   UNSReportBand;
 
 type
@@ -20,7 +19,9 @@ type
   protected
     procedure Paint; override;
     procedure Resize; override;
+    procedure Loaded; override;
     function GenerateBandName(ABandType: TNSReportBandType): string;
+    function GetSafeName: string;
     function HasBand(ABandType: TNSReportBandType): Boolean;
   public
     constructor Create(AOwner: TComponent); override;
@@ -50,7 +51,7 @@ begin
   // Generamos el name del component
   Result.Name := GenerateBandName(ABandType);
 
-  if (csDesigning in ComponentState) and (Owner <> nil) then
+  if csDesigning in ComponentState then
     Owner.InsertComponent(Result);
 
   Result.Parent := Self; // visual
@@ -81,6 +82,19 @@ begin
   Height := 300;
   Color := clBtnFace;
 
+  if csDesigning in ComponentState then
+  begin
+    if (Owner <> nil) and (Owner.FindComponent(GenerateBandName(rbReportHeader)) = nil) then
+    begin
+      AddBand(rbReportHeader);
+      AddBand(rbPageHeader);
+      AddBand(rbColumnHeader);
+      AddBand(rbDetail);
+      AddBand(rbDetailFooter);
+      AddBand(rbPageFooter);
+      AddBand(rbReportFooter);
+    end;
+  end;
 end;
 
 destructor TNSReport.Destroy;
@@ -90,17 +104,15 @@ begin
 end;
 
 function TNSReport.GenerateBandName(ABandType: TNSReportBandType): string;
-var
-  BaseName: string;
 begin
-  if Name <> '' then
-    BaseName := Name
-  else if (Owner <> nil) and (Owner is TComponent) then
-    BaseName := TComponent(Owner).Name
-  else
-    BaseName := 'NSReport';
+  Result := 'Band_' + GetSafeName + '_' + GetEnumName(TypeInfo(TNSReportBandType), Ord(ABandType));
+end;
 
-  Result := 'Band_' + BaseName + '_' + GetEnumName(TypeInfo(TNSReportBandType), Ord(ABandType));
+function TNSReport.GetSafeName: string;
+begin
+  Result := Name;
+  if Result = '' then
+    Result := Copy(GetNamePath, LastDelimiter('.', GetNamePath) + 1, MaxInt);
 end;
 
 function TNSReport.HasBand(ABandType: TNSReportBandType): Boolean;
@@ -116,6 +128,25 @@ begin
       Exit(True);
   end;
   Result := False;
+end;
+
+procedure TNSReport.Loaded;
+begin
+  inherited;
+
+  if csDesigning in ComponentState then
+  begin
+    if not HasBand(rbReportHeader) then
+    begin
+      AddBand(rbReportHeader);
+      AddBand(rbPageHeader);
+      AddBand(rbColumnHeader);
+      AddBand(rbDetail);
+      AddBand(rbDetailFooter);
+      AddBand(rbPageFooter);
+      AddBand(rbReportFooter);
+    end;
+  end;
 end;
 
 procedure TNSReport.Paint;

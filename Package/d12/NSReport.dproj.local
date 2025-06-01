@@ -13,12 +13,15 @@
     <Transaction>2025/05/31 22:48:21.000.074,=F:\Proyects\NSReport\README.md</Transaction>
     <Transaction>2025/05/31 22:52:59.000.029,=F:\Proyects\NSReport\Package\d12\Unit1.pas</Transaction>
     <Transaction>2025/05/31 22:53:13.000.546,F:\Proyects\NSReport\Package\d12\Unit1.pas=F:\Proyects\NSReport\Source\UNSReportBand.pas</Transaction>
+    <Transaction>2025/06/01 18:33:19.820,=F:\Proyects\NSReport\Package\d12\Unit1.pas</Transaction>
+    <Transaction>2025/06/01 18:33:39.783,F:\Proyects\NSReport\Source\UNSReportReg.pas=F:\Proyects\NSReport\Package\d12\Unit1.pas</Transaction>
   </Transactions>  <ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="..\..\..\NSReport"/>
     <File Path="..\..\Source"/>
     <File Path="..\..\Source\UNSRegister.pas"/>
     <File Path="..\..\Source\UNSReport.pas"/>
     <File Path="..\..\Source\UNSReportBand.pas"/>
+    <File Path="..\..\Source\UNSReportReg.pas"/>
     <File Path="..\..\README.md"/>
     <File Path="designide.dcp"/>
     <File Path="rtl.dcp"/>

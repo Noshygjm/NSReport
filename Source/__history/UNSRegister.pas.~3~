@@ -6,8 +6,7 @@ uses
   System.Classes,
   DesignIntf,
   DesignEditors,
-  UNSReport,
-  UNSReportBand;
+  UNSReport;
 
 procedure Register;
 
@@ -17,7 +16,6 @@ procedure Register;
 begin
   // Esto aparecerá en el IDE bajo la pestaña "DDCReport"
   RegisterComponents('NSReport', [TNSReport]);
-  RegisterClass(TNSReportBand);
 end;
 
 end.

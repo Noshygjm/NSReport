@@ -20,6 +20,7 @@ type
   protected
     procedure Paint; override;
     procedure Resize; override;
+    procedure Notification(AComponent: TComponent; Operation: TOperation); override;
     function GenerateBandName(ABandType: TNSReportBandType): string;
     function HasBand(ABandType: TNSReportBandType): Boolean;
   public
@@ -116,6 +117,28 @@ begin
       Exit(True);
   end;
   Result := False;
+end;
+
+procedure TNSReport.Notification(AComponent: TComponent; Operation: TOperation);
+begin
+  inherited;
+
+
+  // Este bloque se ejecuta al insertar el componente en el formulario
+  if (Operation = opInsert) and (csDesigning in ComponentState) then
+  begin
+    // Solo si las bandas no fueron ya creadas
+    if not HasBand(rbReportHeader) then
+    begin
+      AddBand(rbReportHeader);
+      AddBand(rbPageHeader);
+      AddBand(rbColumnHeader);
+      AddBand(rbDetail);
+      AddBand(rbDetailFooter);
+      AddBand(rbPageFooter);
+      AddBand(rbReportFooter);
+    end;
+  end;
 end;
 
 procedure TNSReport.Paint;

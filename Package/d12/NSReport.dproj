@@ -137,6 +137,7 @@
         <DCCReference Include="..\..\Source\UNSReport.pas"/>
         <DCCReference Include="..\..\Source\UNSRegister.pas"/>
         <DCCReference Include="..\..\Source\UNSReportBand.pas"/>
+        <DCCReference Include="..\..\Source\UNSReportReg.pas"/>
         <None Include="..\..\README.md"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>

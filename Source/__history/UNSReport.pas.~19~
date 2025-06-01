@@ -20,6 +20,7 @@ type
   protected
     procedure Paint; override;
     procedure Resize; override;
+    procedure Loaded; override;
     function GenerateBandName(ABandType: TNSReportBandType): string;
     function HasBand(ABandType: TNSReportBandType): Boolean;
   public
@@ -50,7 +51,7 @@ begin
   // Generamos el name del component
   Result.Name := GenerateBandName(ABandType);
 
-  if (csDesigning in ComponentState) and (Owner <> nil) then
+  if csDesigning in ComponentState then
     Owner.InsertComponent(Result);
 
   Result.Parent := Self; // visual
@@ -90,17 +91,8 @@ begin
 end;
 
 function TNSReport.GenerateBandName(ABandType: TNSReportBandType): string;
-var
-  BaseName: string;
 begin
-  if Name <> '' then
-    BaseName := Name
-  else if (Owner <> nil) and (Owner is TComponent) then
-    BaseName := TComponent(Owner).Name
-  else
-    BaseName := 'NSReport';
-
-  Result := 'Band_' + BaseName + '_' + GetEnumName(TypeInfo(TNSReportBandType), Ord(ABandType));
+  Result := 'Band_' + Name + '_' + GetEnumName(TypeInfo(TNSReportBandType), Ord(ABandType));
 end;
 
 function TNSReport.HasBand(ABandType: TNSReportBandType): Boolean;
@@ -116,6 +108,27 @@ begin
       Exit(True);
   end;
   Result := False;
+end;
+
+procedure TNSReport.Loaded;
+begin
+  inherited;
+
+  if csDesigning in ComponentState then
+  begin
+    if not HasBand(rbReportHeader) then
+    begin
+      AddBand(rbReportHeader);
+      AddBand(rbPageHeader);
+      AddBand(rbColumnHeader);
+      AddBand(rbDetail);
+      AddBand(rbDetailFooter);
+      AddBand(rbPageFooter);
+      AddBand(rbReportFooter);
+    end;
+  end;
+
+  ShowMessage('Loaded ejecutado para ' + Name);
 end;
 
 procedure TNSReport.Paint;
