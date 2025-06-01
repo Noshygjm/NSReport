@@ -9,14 +9,12 @@
 
 ## Estructura del proyecto
 
-```
 NSReport/
 ├─ Source/
 │ ├─ UNSReport.pas ← Componente
 │ ├─ UNSRegister.pas ← Registro IDE
 ├─ Package/d12/
 │ └─ NSReport.dpk ← Paquete para Delphi 12.3
-```
 
 ## Instalación
 1. Abrí `Package\d12\NSReport.dpk` en Delphi
